@@ -19,7 +19,7 @@ class ModuleTreeNode
   def set_sibling(sib)
     @sibling = sib
   end
-
+  
   # Getter methods
 
   def get_code()
@@ -37,7 +37,7 @@ class ModuleTreeNode
   def get_sibling()
     return @sibling
   end
-
+  
   # Updater methods
 
   def add_child(mod)

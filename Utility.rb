@@ -40,4 +40,17 @@ class Utility
     end
   end
 
+  def self.input_checker(input, nilarg, onearg)
+    words = input.split(" ")
+    cmd = words[0]
+    cmd.downcase!
+    if (nilarg.include?(cmd))
+      return words.length == 1
+    elsif (onearg.include?(cmd))
+      return words.length == 2
+    else
+      return false
+    end
+  end
+
 end

@@ -1,7 +1,8 @@
 class ModuleTree
+  
   def initialize(hash, leaf)
     @module_hashtable = hash
-    @leaves = leaf
+  #  @leaves = leaf
   end
 
   # Getter methods
@@ -15,7 +16,7 @@ class ModuleTree
   end
 
   # Deep-cloner method. VERY IMPORTANT.
-  
+
   def clone()
     return ModuleTree.new(self.get_hashtable(), self.get_leaves())
   end
@@ -23,20 +24,20 @@ class ModuleTree
   # For Processor Pt 1
 
   def add_node(node, children)
-    if children.empty?
-      @leaves << node
-    else
+ #   if children.empty?
+ #     @leaves << node
+ #   else
       @module_hashtable[node].set_child(children)
       children.each { |chi|
         @module_hashtable[chi].add_parent(node)
       }
-    end
+ #   end
   end
 
   def remove_node(node)
-    if @leaves.include?(node)
-      @leaves -= [node]
-    end
+ #   if @leaves.include?(node)
+ #     @leaves -= [node]
+ #   end
     if !@module_hashtable[node].get_child().empty?
       @module_hashtable[node].get_child().each { |chi|
         @module_hashtable[chi].remove_parent(node)
@@ -46,10 +47,17 @@ class ModuleTree
     @module_hashtable[node].empty_parent()
     @module_hashtable[node].empty_sibling()
   end
-  
-  def add_sibling(node1, node2)
-    node1.add_sibling(node2.get_code())
-    node2.add_sibling(node1.get_code())
+
+  def add_sibling(node1, node2, type)
+    case type
+    when "same"
+      node1.add_sibling(node2.get_code())
+      node2.add_sibling(node1.get_code())
+    when "before"
+      node1.add_sibling(node2.get_code())
+    when "after"
+      node2.add_sibling(node1.get_code())
+    end
   end
 
   # For Processor Pt 2
